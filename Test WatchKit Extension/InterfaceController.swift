@@ -12,6 +12,12 @@ import Foundation
 
 class InterfaceController: WKInterfaceController {
 
+    @IBOutlet weak var table: WKInterfaceTable!
+    
+    @IBAction func sendMessage() {
+        
+    }
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
