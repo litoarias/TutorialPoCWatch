@@ -20,6 +20,7 @@
 		CB3018CD20D279AB00011AB5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018CC20D279AB00011AB5 /* ExtensionDelegate.swift */; };
 		CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018CE20D279AB00011AB5 /* NotificationController.swift */; };
 		CB3018D120D279AB00011AB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB3018D020D279AB00011AB5 /* Assets.xcassets */; };
+		CB3018EA20D2A5FE00011AB5 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018E920D2A5FE00011AB5 /* Row.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		CB3018D020D279AB00011AB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB3018D220D279AB00011AB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB3018D320D279AB00011AB5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		CB3018E920D2A5FE00011AB5 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		CB3018C920D279AB00011AB5 /* Test WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CB3018E920D2A5FE00011AB5 /* Row.swift */,
 				CB3018CA20D279AB00011AB5 /* InterfaceController.swift */,
 				CB3018CC20D279AB00011AB5 /* ExtensionDelegate.swift */,
 				CB3018CE20D279AB00011AB5 /* NotificationController.swift */,
@@ -300,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB3018EA20D2A5FE00011AB5 /* Row.swift in Sources */,
 				CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */,
 				CB3018CD20D279AB00011AB5 /* ExtensionDelegate.swift in Sources */,
 				CB3018CB20D279AB00011AB5 /* InterfaceController.swift in Sources */,
