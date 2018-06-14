@@ -11,17 +11,37 @@ import Foundation
 
 
 class InterfaceController: WKInterfaceController {
-
+    
+    
     @IBOutlet weak var table: WKInterfaceTable!
     
-    @IBAction func sendMessage() {
-        
+    // MARK: - Items Table
+    
+    private var items = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.updateTable()
+            }
+        }
+    }
+    
+    
+    /// Updating all contents of WKInterfaceTable
+    func updateTable() {
+        table.setNumberOfRows(items.count, withRowType: "Row")
+        for (i, item) in items.enumerated() {
+            if let row = table.rowController(at: i) as? Row {
+                row.lbl.setText(item    )
+            }
+        }
     }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
         // Configure interface objects here.
+        
+        items.append("We are ready!!")
     }
     
     override func willActivate() {
@@ -33,5 +53,9 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
+    
+    
+    @IBAction func sendMessage() {
+        
+    }
 }

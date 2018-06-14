@@ -15,12 +15,15 @@
                     <items>
                         <table alignment="left" id="zYv-Nu-0E9">
                             <items>
-                                <tableRow identifier="Row" id="tzw-XF-b7l" customClass="Row">
+                                <tableRow identifier="Row" id="tzw-XF-b7l" customClass="Row" customModule="Test_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="FCc-N5-fq8">
                                         <items>
                                             <label width="128" height="41" alignment="left" text="Label" numberOfLines="0" id="a4j-hI-V7y"/>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="lbl" destination="a4j-hI-V7y" id="3Ei-wv-rM5"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
