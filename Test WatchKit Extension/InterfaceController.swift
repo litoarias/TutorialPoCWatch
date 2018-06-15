@@ -8,10 +8,12 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 
 class InterfaceController: WKInterfaceController {
     
+    var session : WCSession?
     
     @IBOutlet weak var table: WKInterfaceTable!
     
@@ -47,6 +49,10 @@ class InterfaceController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        session = WCSession.default
+        session?.delegate = self
+        session?.activate()
     }
     
     override func didDeactivate() {
@@ -56,6 +62,20 @@ class InterfaceController: WKInterfaceController {
     
     
     @IBAction func sendMessage() {
-        
+        session?.sendMessage(["request" : "version"], replyHandler: { (response) in
+            self.items.append("Reply: \(response)")
+        }, errorHandler: { (error) in
+            print("Error sending message: %@", error)
+        })
     }
+}
+
+
+extension InterfaceController: WCSessionDelegate {
+    
+    // 4: Required stub for delegating session
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
+    }
+        
 }
