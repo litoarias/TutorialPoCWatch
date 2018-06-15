@@ -11,23 +11,30 @@ import WatchConnectivity
 
 class SessionHandler : NSObject, WCSessionDelegate {
     
+    // 1: Singleton
+    static let shared = SessionHandler()
     
-    // 1: Property to manage session
+    // 2: Property to manage session
     var session = WCSession.default
     
     override init() {
         super.init()
         
-        // 2: Start and avtivate session
+        // 3: Start and avtivate session
         session.delegate = self
         session.activate()
         
         print("isPaired?: \(session.isPaired), isWatchAppInstalled?: \(session.isWatchAppInstalled)")
     }
     
+    func isSuported() -> Bool {
+        return WCSession.isSupported()
+    }
+    
+    
     // MARK: - WCSessionDelegate
     
-    // 3: Required protocols
+    // 4: Required protocols
     
     // a
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
@@ -42,6 +49,13 @@ class SessionHandler : NSObject, WCSessionDelegate {
     // c
     func sessionDidDeactivate(_ session: WCSession) {
         print("sessionDidDeactivate: \(session)")
+        // Reactivate session
+        /**
+         * This is to re-activate the session on the phone when the user has switched from one
+         * paired watch to second paired one. Calling it like this assumes that you have no other
+         * threads/part of your code that needs to be given time before the switch occurs.
+         */
+        self.session.activate()
     }
     
     /// Observer to receive messages from watch and able to response it

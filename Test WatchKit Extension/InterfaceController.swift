@@ -13,6 +13,7 @@ import WatchConnectivity
 
 class InterfaceController: WKInterfaceController {
     
+    // 1: Session property
     var session : WCSession?
     
     @IBOutlet weak var table: WKInterfaceTable!
@@ -50,6 +51,7 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
+        // 2: Initialization of session and set as delegate this InterfaceController
         session = WCSession.default
         session?.delegate = self
         session?.activate()
@@ -61,12 +63,23 @@ class InterfaceController: WKInterfaceController {
     }
     
     
+    // 3. With our session property which allows implement a method for start communication
+    // and manage the counterpart response
     @IBAction func sendMessage() {
-        session?.sendMessage(["request" : "version"], replyHandler: { (response) in
-            self.items.append("Reply: \(response)")
-        }, errorHandler: { (error) in
-            print("Error sending message: %@", error)
-        })
+        /**
+         *  The iOS device is within range, so communication can occur and the WatchKit extension is running in the
+         *  foreground, or is running with a high priority in the background (for example, during a workout session
+         *  or when a complication is loading its initial timeline data).
+         */
+        if (session?.isReachable)! {
+            session?.sendMessage(["request" : "version"], replyHandler: { (response) in
+                self.items.append("Reply: \(response)")
+            }, errorHandler: { (error) in
+                print("Error sending message: %@", error)
+            })
+        } else {
+            print("iPhone is not reachable!!")
+        }
     }
 }
 
@@ -77,5 +90,5 @@ extension InterfaceController: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
     }
-        
+    
 }
