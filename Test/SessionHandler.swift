@@ -15,14 +15,16 @@ class SessionHandler : NSObject, WCSessionDelegate {
     static let shared = SessionHandler()
     
     // 2: Property to manage session
-    var session = WCSession.default
+    private var session = WCSession.default
     
     override init() {
         super.init()
         
-        // 3: Start and avtivate session
-        session.delegate = self
-        session.activate()
+        // 3: Start and avtivate session if it's supported
+        if isSuported() {
+            session.delegate = self
+            session.activate()
+        }
         
         print("isPaired?: \(session.isPaired), isWatchAppInstalled?: \(session.isWatchAppInstalled)")
     }
@@ -58,12 +60,12 @@ class SessionHandler : NSObject, WCSessionDelegate {
         self.session.activate()
     }
     
-    /// Observer to receive messages from watch and able to response it
+    /// Observer to receive messages from watch and we be able to response it
     ///
     /// - Parameters:
-    ///   - session:
-    ///   - message:
-    ///   - replyHandler:
+    ///   - session: session
+    ///   - message: message received
+    ///   - replyHandler: response handler
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         if message["request"] as? String == "version" {
             replyHandler(["version" : "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? "No version")"])

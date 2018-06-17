@@ -14,7 +14,7 @@ import WatchConnectivity
 class InterfaceController: WKInterfaceController {
     
     // 1: Session property
-    var session : WCSession?
+    private var session = WCSession.default
     
     @IBOutlet weak var table: WKInterfaceTable!
     
@@ -30,11 +30,11 @@ class InterfaceController: WKInterfaceController {
     
     
     /// Updating all contents of WKInterfaceTable
-    func updateTable() {
+    private func updateTable() {
         table.setNumberOfRows(items.count, withRowType: "Row")
         for (i, item) in items.enumerated() {
             if let row = table.rowController(at: i) as? Row {
-                row.lbl.setText(item    )
+                row.lbl.setText(item)
             }
         }
     }
@@ -51,10 +51,12 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-        // 2: Initialization of session and set as delegate this InterfaceController
-        session = WCSession.default
-        session?.delegate = self
-        session?.activate()
+        // 2: Initialization of session and set as delegate this InterfaceController if it's supported
+        if isSuported() {
+            session.delegate = self
+            session.activate()
+        }
+        
     }
     
     override func didDeactivate() {
@@ -62,6 +64,13 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
     
+    private func isSuported() -> Bool {
+        return WCSession.isSupported()
+    }
+    
+    private func isReachable() -> Bool {
+        return session.isReachable
+    }
     
     // 3. With our session property which allows implement a method for start communication
     // and manage the counterpart response
@@ -71,8 +80,8 @@ class InterfaceController: WKInterfaceController {
          *  foreground, or is running with a high priority in the background (for example, during a workout session
          *  or when a complication is loading its initial timeline data).
          */
-        if (session?.isReachable)! {
-            session?.sendMessage(["request" : "version"], replyHandler: { (response) in
+        if isReachable() {
+            session.sendMessage(["request" : "version"], replyHandler: { (response) in
                 self.items.append("Reply: \(response)")
             }, errorHandler: { (error) in
                 print("Error sending message: %@", error)
