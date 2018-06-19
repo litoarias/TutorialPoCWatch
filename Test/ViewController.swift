@@ -9,12 +9,24 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    
+    // Connect with InterfaceBuilder
+    // 1: Get singleton class whitch manage WCSession
+    var connectivityHandler = SessionHandler.shared
+    
+    // 2: Counter for manage number of messages sended
+    var messagesCounter = 0
+    
+    // ...
+    
+    /// Send messages on main thread
+    @IBAction func sendMessage(_ sender: UIButton) {
+        messagesCounter += 1
+        // 3: Send message to apple watch, we don't wait to response, only trace errors
+        connectivityHandler.session.sendMessage(["msg" : "Message \(messagesCounter)"], replyHandler: nil) { (error) in
+            print("Error sending message: \(error)")
+        }
     }
-
-
+    
 }
 

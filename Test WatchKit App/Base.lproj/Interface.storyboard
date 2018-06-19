@@ -27,7 +27,11 @@
                                 </tableRow>
                             </items>
                         </table>
-                        <button width="1" alignment="left" title="Button" id="tvu-8n-SMb"/>
+                        <button width="1" alignment="left" title="Button" id="tvu-8n-SMb">
+                            <connections>
+                                <action selector="sendMessage" destination="AgC-eL-Hgc" id="gac-zf-1z1"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="table" destination="zYv-Nu-0E9" id="yGx-8A-EEN"/>

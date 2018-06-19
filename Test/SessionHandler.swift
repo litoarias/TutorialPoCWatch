@@ -11,16 +11,20 @@ import WatchConnectivity
 
 class SessionHandler : NSObject, WCSessionDelegate {
     
-    // 1: Singleton
+    // Singleton
     static let shared = SessionHandler()
     
-    // 2: Property to manage session
-    private var session = WCSession.default
+    // Property to manage session
+    var session = WCSession.default
+    
+    // 1: Create new property for test if receive messages and print it
+    var messages = [String]()
+    
     
     override init() {
         super.init()
         
-        // 3: Start and avtivate session if it's supported
+        // Start and avtivate session if it's supported
         if isSuported() {
             session.delegate = self
             session.activate()
@@ -36,7 +40,7 @@ class SessionHandler : NSObject, WCSessionDelegate {
     
     // MARK: - WCSessionDelegate
     
-    // 4: Required protocols
+    // Required protocols
     
     // a
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
@@ -72,4 +76,13 @@ class SessionHandler : NSObject, WCSessionDelegate {
         }
     }
     
+    /// 1: Observer to recieve messages from watch
+    ///
+    /// - Parameters:
+    ///   - session:
+    ///   - message:
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        let msg = message["msg"]!
+        self.messages.append("Message \(msg)")
+    }
 }

@@ -13,7 +13,7 @@ import WatchConnectivity
 
 class InterfaceController: WKInterfaceController {
     
-    // 1: Session property
+    // Session property
     private var session = WCSession.default
     
     @IBOutlet weak var table: WKInterfaceTable!
@@ -51,7 +51,7 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-        // 2: Initialization of session and set as delegate this InterfaceController if it's supported
+        // Initialization of session and set as delegate this InterfaceController if it's supported
         if isSuported() {
             session.delegate = self
             session.activate()
@@ -72,7 +72,7 @@ class InterfaceController: WKInterfaceController {
         return session.isReachable
     }
     
-    // 3. With our session property which allows implement a method for start communication
+    // With our session property which allows implement a method for start communication
     // and manage the counterpart response
     @IBAction func sendMessage() {
         /**
@@ -95,9 +95,16 @@ class InterfaceController: WKInterfaceController {
 
 extension InterfaceController: WCSessionDelegate {
     
-    // 4: Required stub for delegating session
+    // Required stub for delegating session
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
+    }
+    
+    // Intercambiar mensajes con sendMessage en primer plano
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        WKInterfaceDevice.current().play(.notification)
+        let msg = message["msg"]!
+        self.items.append("\(msg)")
     }
     
 }
