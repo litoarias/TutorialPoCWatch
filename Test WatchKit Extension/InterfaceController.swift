@@ -13,49 +13,29 @@ import WatchConnectivity
 
 class InterfaceController: WKInterfaceController {
     
-    // Session property
-    private var session = WCSession.default
-    
-    @IBOutlet weak var table: WKInterfaceTable!
-    
-    // MARK: - Items Table
-    
-    private var items = [String]() {
+    @IBOutlet var messagesTable: WKInterfaceTable!
+    var connectivityHandler = WatchSessionManager.shared
+    var session : WCSession?
+    var counter = 0
+    var messages = [String]() {
         didSet {
-            DispatchQueue.main.async {
-                self.updateTable()
-            }
-        }
-    }
-    
-    
-    /// Updating all contents of WKInterfaceTable
-    private func updateTable() {
-        table.setNumberOfRows(items.count, withRowType: "Row")
-        for (i, item) in items.enumerated() {
-            if let row = table.rowController(at: i) as? Row {
-                row.lbl.setText(item)
+            OperationQueue.main.addOperation {
+                self.updateMessagesTable()
             }
         }
     }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
         // Configure interface objects here.
-        
-        items.append("We are ready!!")
+        messages.append("ready")
     }
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        
-        // Initialization of session and set as delegate this InterfaceController if it's supported
-        if isSuported() {
-            session.delegate = self
-            session.activate()
-        }
+        connectivityHandler.startSession()
+        connectivityHandler.watchOSDelegate = self
         
     }
     
@@ -64,47 +44,46 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
     
-    private func isSuported() -> Bool {
-        return WCSession.isSupported()
-    }
-    
-    private func isReachable() -> Bool {
-        return session.isReachable
-    }
-    
-    // With our session property which allows implement a method for start communication
-    // and manage the counterpart response
-    @IBAction func sendMessage() {
-        /**
-         *  The iOS device is within range, so communication can occur and the WatchKit extension is running in the
-         *  foreground, or is running with a high priority in the background (for example, during a workout session
-         *  or when a complication is loading its initial timeline data).
-         */
-        if isReachable() {
-            session.sendMessage(["request" : "version"], replyHandler: { (response) in
-                self.items.append("Reply: \(response)")
-            }, errorHandler: { (error) in
-                print("Error sending message: %@", error)
-            })
-        } else {
-            print("iPhone is not reachable!!")
+    @IBAction func dateRequest() {
+        let data = ["request" : RequestType.date.rawValue as AnyObject]
+        connectivityHandler.sendMessage(message: data, replyHandler: { (response) in
+            self.messages.append("Reply: \(response)")
+        }) { (error) in
+            print("Error sending message: \(error)")
         }
     }
-}
-
-
-extension InterfaceController: WCSessionDelegate {
     
-    // Required stub for delegating session
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
+    
+    @IBAction func versionRequest() {
+        let data = ["request" : RequestType.version.rawValue as AnyObject]
+        connectivityHandler.sendMessage(message: data, replyHandler: { (response) in
+            self.messages.append("Reply: \(response)")
+        }) { (error) in
+            print("Error sending message: \(error)")
+        }
     }
     
-    // Intercambiar mensajes con sendMessage en primer plano
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        WKInterfaceDevice.current().play(.notification)
-        let msg = message["msg"]!
-        self.items.append("\(msg)")
+    // MARK: - Messages Table
+    
+    func updateMessagesTable() {
+        messagesTable.setNumberOfRows(messages.count, withRowType: "Row")
+        for (i, msg) in messages.enumerated() {
+            let row = messagesTable.rowController(at: i) as? Row
+            row?.lbl.setText(msg)
+        }
+    }
+    
+}
+
+extension InterfaceController: WatchOSDelegate {
+    
+    func messageReceived(tuple: MessageReceived) {
+        DispatchQueue.main.async() {
+            WKInterfaceDevice.current().play(.notification)
+            if let msg = tuple.message["msg"] {
+                self.messages.append("\(msg)")
+            }
+        }
     }
     
 }

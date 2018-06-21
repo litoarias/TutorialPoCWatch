@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB26E6F120D3DEBC0092A3E0 /* SessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB26E6F020D3DEBC0092A3E0 /* SessionHandler.swift */; };
 		CB30189220D279A800011AB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB30189120D279A800011AB5 /* AppDelegate.swift */; };
 		CB30189420D279A800011AB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB30189320D279A800011AB5 /* ViewController.swift */; };
 		CB30189720D279A800011AB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB30189520D279A800011AB5 /* Main.storyboard */; };
@@ -22,6 +21,10 @@
 		CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018CE20D279AB00011AB5 /* NotificationController.swift */; };
 		CB3018D120D279AB00011AB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB3018D020D279AB00011AB5 /* Assets.xcassets */; };
 		CB3018EA20D2A5FE00011AB5 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018E920D2A5FE00011AB5 /* Row.swift */; };
+		CBC8387520DA337200DF7BFF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */; };
+		CBC8387620DA337200DF7BFF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */; };
+		CBC8387A20DBB84A00DF7BFF /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387920DBB84A00DF7BFF /* RequestType.swift */; };
+		CBC8387B20DBB84A00DF7BFF /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387920DBB84A00DF7BFF /* RequestType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +70,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CB26E6F020D3DEBC0092A3E0 /* SessionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionHandler.swift; sourceTree = "<group>"; };
 		CB30188E20D279A800011AB5 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB30189120D279A800011AB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB30189320D279A800011AB5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,8 @@
 		CB3018D220D279AB00011AB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB3018D320D279AB00011AB5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		CB3018E920D2A5FE00011AB5 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
+		CBC8387920DBB84A00DF7BFF /* RequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 		CB26E6EF20D3D4610092A3E0 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */,
+				CBC8387920DBB84A00DF7BFF /* RequestType.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -140,7 +146,6 @@
 			children = (
 				CB30189120D279A800011AB5 /* AppDelegate.swift */,
 				CB30189320D279A800011AB5 /* ViewController.swift */,
-				CB26E6F020D3DEBC0092A3E0 /* SessionHandler.swift */,
 				CB30189520D279A800011AB5 /* Main.storyboard */,
 				CB30189820D279A900011AB5 /* Assets.xcassets */,
 				CB30189A20D279A900011AB5 /* LaunchScreen.storyboard */,
@@ -306,8 +311,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB30189420D279A800011AB5 /* ViewController.swift in Sources */,
-				CB26E6F120D3DEBC0092A3E0 /* SessionHandler.swift in Sources */,
+				CBC8387520DA337200DF7BFF /* WatchSessionManager.swift in Sources */,
 				CB30189220D279A800011AB5 /* AppDelegate.swift in Sources */,
+				CBC8387A20DBB84A00DF7BFF /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +325,8 @@
 				CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */,
 				CB3018CD20D279AB00011AB5 /* ExtensionDelegate.swift in Sources */,
 				CB3018CB20D279AB00011AB5 /* InterfaceController.swift in Sources */,
+				CBC8387620DA337200DF7BFF /* WatchSessionManager.swift in Sources */,
+				CBC8387B20DBB84A00DF7BFF /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

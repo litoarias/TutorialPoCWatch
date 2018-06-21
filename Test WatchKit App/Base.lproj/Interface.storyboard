@@ -27,14 +27,19 @@
                                 </tableRow>
                             </items>
                         </table>
-                        <button width="1" alignment="left" title="Button" id="tvu-8n-SMb">
+                        <button width="1" alignment="left" title="Request Date" id="ueo-YT-NYy">
                             <connections>
-                                <action selector="sendMessage" destination="AgC-eL-Hgc" id="gac-zf-1z1"/>
+                                <action selector="dateRequest" destination="AgC-eL-Hgc" id="fIJ-yW-9UC"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Request Version" id="sFJ-j0-Drj">
+                            <connections>
+                                <action selector="versionRequest" destination="AgC-eL-Hgc" id="Lcg-RI-Zxt"/>
                             </connections>
                         </button>
                     </items>
                     <connections>
-                        <outlet property="table" destination="zYv-Nu-0E9" id="yGx-8A-EEN"/>
+                        <outlet property="messagesTable" destination="zYv-Nu-0E9" id="bPm-7U-ptz"/>
                     </connections>
                 </controller>
             </objects>

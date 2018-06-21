@@ -7,26 +7,51 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 class ViewController: UIViewController {
     
-    // Connect with InterfaceBuilder
-    // 1: Get singleton class whitch manage WCSession
-    var connectivityHandler = SessionHandler.shared
+    var connectivityHandler = WatchSessionManager.shared
     
-    // 2: Counter for manage number of messages sended
-    var messagesCounter = 0
+    var counter = 0
     
-    // ...
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        connectivityHandler.iOSDelegate = self
+        
+    }
     
     /// Send messages on main thread
+    ///
+    /// - Parameter sender: UIButton
     @IBAction func sendMessage(_ sender: UIButton) {
-        messagesCounter += 1
-        // 3: Send message to apple watch, we don't wait to response, only trace errors
-        connectivityHandler.session.sendMessage(["msg" : "Message \(messagesCounter)"], replyHandler: nil) { (error) in
+        counter += 1
+        connectivityHandler.sendMessage(message: ["msg" : "Message \(counter)" as AnyObject]) { (error) in
             print("Error sending message: \(error)")
+        }
+    }
+}
+
+extension ViewController: iOSDelegate {
+    
+    func messageReceived(tuple: MessageReceived) {
+        // Handle receiving message
+        
+        guard let reply = tuple.replyHandler else {
+            return
+        }
+        
+        // Need reply to counterpart
+        switch tuple.message["request"] as! RequestType.RawValue {
+        case RequestType.date.rawValue:
+            reply(["date" : "\(Date())"])
+        case RequestType.version.rawValue:
+            let version = ["version" : "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? "No version")"]
+            reply(["version" : version])
+        default:
+            break
         }
     }
     
 }
-
