@@ -20,6 +20,11 @@
 		CB3018CD20D279AB00011AB5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018CC20D279AB00011AB5 /* ExtensionDelegate.swift */; };
 		CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018CE20D279AB00011AB5 /* NotificationController.swift */; };
 		CB3018D120D279AB00011AB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB3018D020D279AB00011AB5 /* Assets.xcassets */; };
+		CB3018EA20D2A5FE00011AB5 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018E920D2A5FE00011AB5 /* Row.swift */; };
+		CBC8387520DA337200DF7BFF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */; };
+		CBC8387620DA337200DF7BFF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */; };
+		CBC8387A20DBB84A00DF7BFF /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387920DBB84A00DF7BFF /* RequestType.swift */; };
+		CBC8387B20DBB84A00DF7BFF /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387920DBB84A00DF7BFF /* RequestType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +88,9 @@
 		CB3018D020D279AB00011AB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB3018D220D279AB00011AB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB3018D320D279AB00011AB5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		CB3018E920D2A5FE00011AB5 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
+		CBC8387920DBB84A00DF7BFF /* RequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,11 +111,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB26E6EF20D3D4610092A3E0 /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */,
+				CBC8387920DBB84A00DF7BFF /* RequestType.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
 		CB30188520D279A700011AB5 = {
 			isa = PBXGroup;
 			children = (
 				CB30189020D279A800011AB5 /* Test */,
 				CB3018BA20D279AA00011AB5 /* Test WatchKit App */,
+				CB26E6EF20D3D4610092A3E0 /* Commons */,
 				CB3018C920D279AB00011AB5 /* Test WatchKit Extension */,
 				CB30188F20D279A800011AB5 /* Products */,
 			);
@@ -149,6 +167,7 @@
 		CB3018C920D279AB00011AB5 /* Test WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CB3018E920D2A5FE00011AB5 /* Row.swift */,
 				CB3018CA20D279AB00011AB5 /* InterfaceController.swift */,
 				CB3018CC20D279AB00011AB5 /* ExtensionDelegate.swift */,
 				CB3018CE20D279AB00011AB5 /* NotificationController.swift */,
@@ -292,7 +311,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB30189420D279A800011AB5 /* ViewController.swift in Sources */,
+				CBC8387520DA337200DF7BFF /* WatchSessionManager.swift in Sources */,
 				CB30189220D279A800011AB5 /* AppDelegate.swift in Sources */,
+				CBC8387A20DBB84A00DF7BFF /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,9 +321,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB3018EA20D2A5FE00011AB5 /* Row.swift in Sources */,
 				CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */,
 				CB3018CD20D279AB00011AB5 /* ExtensionDelegate.swift in Sources */,
 				CB3018CB20D279AB00011AB5 /* InterfaceController.swift in Sources */,
+				CBC8387620DA337200DF7BFF /* WatchSessionManager.swift in Sources */,
+				CBC8387B20DBB84A00DF7BFF /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
