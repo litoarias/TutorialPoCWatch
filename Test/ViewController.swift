@@ -35,6 +35,11 @@ class ViewController: UIViewController {
 
 extension ViewController: iOSDelegate {
     
+    func applicationContextReceived(tuple: ApplicationContextReceived) {
+        
+    }
+    
+    
     func messageReceived(tuple: MessageReceived) {
         // Handle receiving message
         

@@ -10,32 +10,38 @@
 import WatchKit
 import WatchConnectivity
 
-// 1: Encapsulating in a tuple for don't duplicate code
+// Encapsulating in a tuple for don't duplicate code
 typealias MessageReceived = (session: WCSession, message: [String : Any], replyHandler: (([String : Any]) -> Void)?)
+// 1: Same that before, but to manage ApplicationContextReceived
+typealias ApplicationContextReceived = (session: WCSession, applicationContext: [String : Any])
 
-// 2: Protocol for manage all watchOS delegations
+// Protocol for manage all watchOS delegations
 protocol WatchOSDelegate: AnyObject {
     func messageReceived(tuple: MessageReceived)
+    // 2: For WatchOS
+    func applicationContextReceived(tuple: ApplicationContextReceived)
 }
 
-// 3: Protocol for manage all iOS delegations
+// Protocol for manage all iOS delegations
 protocol iOSDelegate: AnyObject {
     func messageReceived(tuple: MessageReceived)
+    // 3: For iOS
+    func applicationContextReceived(tuple: ApplicationContextReceived)
 }
 
 class WatchSessionManager: NSObject {
 
-    // 4: Singleton for manage only one instance
+    // Singleton for manage only one instance
     static let shared = WatchSessionManager()
     
-    // 5: Delegates for each platform
+    // Delegates for each platform
     weak var watchOSDelegate: WatchOSDelegate?
     weak var iOSDelegate: iOSDelegate?
 
-    // 6: Getting session if we want get it, if not return nil
+    // Getting session if we want get it, if not return nil
     fileprivate let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
     
-    // 7: If device it's avaliable
+    // If device it's avaliable
     var validSession: WCSession? {
         
         // paired - the user has to have their device paired to the watch
@@ -54,7 +60,7 @@ class WatchSessionManager: NSObject {
         #endif
     }
     
-    // 8: Method for start session and set this class with a delegate
+    // Method for start session and set this class with a delegate
     func startSession() {
         session?.delegate = self
         session?.activate()
@@ -74,7 +80,7 @@ extension WatchSessionManager: WCSessionDelegate {
         print("activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
     }
     
-    // 9: Only for iOS OS
+    // Only for iOS OS
     #if os(iOS)
     /**
      * Called when the session can no longer be used to modify or add any new transfers and,
@@ -88,7 +94,6 @@ extension WatchSessionManager: WCSessionDelegate {
      * Called when all delegate callbacks for the previously selected watch has occurred.
      * The session can be re-activated for the now selected watch using activateSession.
      */
-    // 10: 
     func sessionDidDeactivate(_ session: WCSession) {
         print("sessionDidDeactivate: \(session)")
         /**
@@ -102,10 +107,10 @@ extension WatchSessionManager: WCSessionDelegate {
 
 }
 
-// 11: MARK: Interactive Messaging
+// MARK: Interactive Messaging
 extension WatchSessionManager {
     
-    // 12: Live messaging! App has to be reachable
+    // Live messaging! App has to be reachable
     private var validReachableSession: WCSession? {
         if let session = validSession, session.isReachable {
             return session
@@ -113,7 +118,7 @@ extension WatchSessionManager {
         return nil
     }
     
-    // 13: Sender
+    // Sender
     func sendMessage(message: [String : AnyObject], replyHandler: (([String : Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         validReachableSession?.sendMessage(message, replyHandler: replyHandler, errorHandler: errorHandler)
     }
@@ -123,7 +128,7 @@ extension WatchSessionManager {
     }
     // end Sender
     
-    // 14: Receiver
+    // Receiver
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         handleSession(session, didReceiveMessage: message)
     }
@@ -133,7 +138,7 @@ extension WatchSessionManager {
     }
     // end Receiver
     
-    // 15: Helper Method
+    // Helper Method
     func handleSession(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: (([String : Any]) -> Void)? = nil) {
         // handle receiving message
         #if os(iOS)
@@ -146,30 +151,33 @@ extension WatchSessionManager {
    
 }
 
-//// MARK: Application Context
-//// use when your app needs only the latest information
-//// if the data was not sent, it will be replaced
-//extension WatchSessionManager {
-//
-//    // Sender
-//    func updateApplicationContext(applicationContext: [String : AnyObject]) throws {
-//        if let session = validSession {
-//            do {
-//                try session.updateApplicationContext(applicationContext)
-//            } catch let error {
-//                throw error
-//            }
-//        }
-//    }
-//
-//    // Receiver
-//    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-//        // handle receiving application context
-//        DispatchQueue.main.async() {
-//            // make sure to put on the main queue to update UI!
-//        }
-//    }
-//}
+// 4: New extension for manage didReceiveApplicationContext()
+// MARK: Application Context
+// use when your app needs only the latest information
+// if the data was not sent, it will be replaced
+extension WatchSessionManager {
+    
+    // 5: Sender
+    func updateApplicationContext(applicationContext: [String : Any]) throws {
+        if let session = validSession {
+            do {
+                try session.updateApplicationContext(applicationContext)
+            } catch let error {
+                throw error
+            }
+        }
+    }
+    
+    // 6: Receiver
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        #if os(iOS)
+        iOSDelegate?.applicationContextReceived(tuple: (session, applicationContext))
+        #elseif os(watchOS)
+        watchOSDelegate?.applicationContextReceived(tuple: (session, applicationContext))
+        #endif
+    }
+    
+}
 
 //// MARK: User Info
 //// use when your app needs all the data

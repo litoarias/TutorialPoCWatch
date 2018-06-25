@@ -13,7 +13,11 @@ import WatchConnectivity
 
 class InterfaceController: WKInterfaceController {
     
-    @IBOutlet var messagesTable: WKInterfaceTable!
+    @IBOutlet var messagesTable: WKInterfaceTable!    
+    @IBOutlet weak var picker: WKInterfacePicker!
+    @IBOutlet weak var btnDate: WKInterfaceButton!
+    @IBOutlet weak var btnVersion: WKInterfaceButton!
+    
     var connectivityHandler = WatchSessionManager.shared
     var session : WCSession?
     var counter = 0
@@ -29,6 +33,15 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         // Configure interface objects here.
         messages.append("ready")
+        
+        // Set picker data
+        let pickerItems: [WKPickerItem] = Constants.itemList.map {
+            let pickerItem = WKPickerItem()
+            pickerItem.caption = $0.0
+            pickerItem.title = $0.1
+            return pickerItem
+        }
+        picker.setItems(pickerItems)
     }
     
     override func willActivate() {
@@ -73,9 +86,31 @@ class InterfaceController: WKInterfaceController {
         }
     }
     
+    @IBAction func changeTheme(_ value: Int) {
+        selectedTheme(row: value)
+        do {
+            try connectivityHandler.updateApplicationContext(applicationContext: ["row" : value] as [String : AnyObject])
+        } catch {
+            print("Error: \(error)")
+        }
+    }
+    
+    func selectedTheme(row: Int) {
+        self.btnDate.setBackgroundColor(Constants.itemList[row].2)
+        self.btnVersion.setBackgroundColor(Constants.itemList[row].2)
+    }
 }
 
 extension InterfaceController: WatchOSDelegate {
+    
+    func applicationContextReceived(tuple: ApplicationContextReceived) {
+        DispatchQueue.main.async() {
+            if let row = tuple.applicationContext["row"] as? Int {
+                self.changeTheme(row)
+            }
+        }
+    }
+    
     
     func messageReceived(tuple: MessageReceived) {
         DispatchQueue.main.async() {

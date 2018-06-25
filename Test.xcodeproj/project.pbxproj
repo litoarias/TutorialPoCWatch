@@ -21,6 +21,8 @@
 		CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018CE20D279AB00011AB5 /* NotificationController.swift */; };
 		CB3018D120D279AB00011AB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB3018D020D279AB00011AB5 /* Assets.xcassets */; };
 		CB3018EA20D2A5FE00011AB5 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3018E920D2A5FE00011AB5 /* Row.swift */; };
+		CBC181D120E0E60600D1015C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC181D020E0E60600D1015C /* Constants.swift */; };
+		CBC181D220E0E60600D1015C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC181D020E0E60600D1015C /* Constants.swift */; };
 		CBC8387520DA337200DF7BFF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */; };
 		CBC8387620DA337200DF7BFF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */; };
 		CBC8387A20DBB84A00DF7BFF /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC8387920DBB84A00DF7BFF /* RequestType.swift */; };
@@ -89,6 +91,7 @@
 		CB3018D220D279AB00011AB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB3018D320D279AB00011AB5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		CB3018E920D2A5FE00011AB5 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		CBC181D020E0E60600D1015C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		CBC8387920DBB84A00DF7BFF /* RequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +119,7 @@
 			children = (
 				CBC8387420DA337200DF7BFF /* WatchSessionManager.swift */,
 				CBC8387920DBB84A00DF7BFF /* RequestType.swift */,
+				CBC181D020E0E60600D1015C /* Constants.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -310,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBC181D120E0E60600D1015C /* Constants.swift in Sources */,
 				CB30189420D279A800011AB5 /* ViewController.swift in Sources */,
 				CBC8387520DA337200DF7BFF /* WatchSessionManager.swift in Sources */,
 				CB30189220D279A800011AB5 /* AppDelegate.swift in Sources */,
@@ -325,6 +330,7 @@
 				CB3018CF20D279AB00011AB5 /* NotificationController.swift in Sources */,
 				CB3018CD20D279AB00011AB5 /* ExtensionDelegate.swift in Sources */,
 				CB3018CB20D279AB00011AB5 /* InterfaceController.swift in Sources */,
+				CBC181D220E0E60600D1015C /* Constants.swift in Sources */,
 				CBC8387620DA337200DF7BFF /* WatchSessionManager.swift in Sources */,
 				CBC8387B20DBB84A00DF7BFF /* RequestType.swift in Sources */,
 			);
