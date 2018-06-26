@@ -12,6 +12,8 @@ import WatchConnectivity
 class ViewController: UIViewController {
     
     var connectivityHandler = WatchSessionManager.shared
+    @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var btnSendMessage: UIButton!
     
     var counter = 0
     
@@ -20,6 +22,8 @@ class ViewController: UIViewController {
         
         connectivityHandler.iOSDelegate = self
         
+        picker.delegate = self
+        picker.dataSource = self
     }
     
     /// Send messages on main thread
@@ -36,7 +40,11 @@ class ViewController: UIViewController {
 extension ViewController: iOSDelegate {
     
     func applicationContextReceived(tuple: ApplicationContextReceived) {
-        
+        DispatchQueue.main.async() {
+            if let row = tuple.applicationContext["row"] as? Int {
+                self.btnSendMessage.backgroundColor = Constants.itemList[row].2
+            }
+        }
     }
     
     
@@ -59,4 +67,30 @@ extension ViewController: iOSDelegate {
         }
     }
     
+}
+
+// MARK: UIPickerViewDataSource - UIPickerViewDelegate
+
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Constants.itemList.count;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Constants.itemList[row].1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        do {
+            try connectivityHandler.updateApplicationContext(applicationContext: ["row" : row])
+        } catch {
+            print("Error: \(error)")
+        }
+        self.btnSendMessage.backgroundColor = Constants.itemList[row].2
+    }
 }

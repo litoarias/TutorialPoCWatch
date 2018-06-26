@@ -27,19 +27,29 @@
                                     <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RM6-hb-Trw"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTi-ou-1zp">
+                                <rect key="frame" x="0.0" y="70" width="375" height="216"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4Mr-ys-yqg" firstAttribute="leading" secondItem="Uee-0j-aNJ" secondAttribute="leading" constant="16" id="Mhv-dC-1G9"/>
+                            <constraint firstItem="GTi-ou-1zp" firstAttribute="top" secondItem="4Mr-ys-yqg" secondAttribute="bottom" constant="8" id="Mz3-NG-vXb"/>
                             <constraint firstItem="4Mr-ys-yqg" firstAttribute="top" secondItem="Uee-0j-aNJ" secondAttribute="top" constant="12" id="a4S-UP-IT4"/>
+                            <constraint firstItem="GTi-ou-1zp" firstAttribute="trailing" secondItem="Uee-0j-aNJ" secondAttribute="trailing" id="emQ-HL-in7"/>
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="trailing" secondItem="4Mr-ys-yqg" secondAttribute="trailing" constant="16" id="oO0-cI-TLJ"/>
+                            <constraint firstItem="GTi-ou-1zp" firstAttribute="leading" secondItem="Uee-0j-aNJ" secondAttribute="leading" id="uDL-hp-j6S"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uee-0j-aNJ"/>
                     </view>
+                    <connections>
+                        <outlet property="btnSendMessage" destination="4Mr-ys-yqg" id="DYM-ku-pP7"/>
+                        <outlet property="picker" destination="GTi-ou-1zp" id="DgG-Kq-6QZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-473" y="71"/>
+            <point key="canvasLocation" x="-679" y="67"/>
         </scene>
     </scenes>
 </document>
